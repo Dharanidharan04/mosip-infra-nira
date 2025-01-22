@@ -12,6 +12,9 @@ CHART_VERSION=12.0.1
 echo Create $NS namespace
 kubectl create ns $NS
 
+
+helm repo add credential-minio-cleanup https://tf-nira.github.io/mosip-helm-nira/
+
 function installing_idrepo() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
@@ -35,6 +38,9 @@ function installing_idrepo() {
 
   echo Running vid service
   helm -n $NS install vid mosip/vid --set image.repository=niraqa/id-repository-vid-service --set image.tag=tf_nira_qa_new--version $CHART_VERSION
+
+  echo Running credential-minio-cleanup service
+  helm -n $NS install cleanup mosip-helm-nira/credential-minio-cleanup --set image.repository=niraqa/credential-minio-cleanup --set image.tag=tf_nira_qa_new --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Installed idrepo services
