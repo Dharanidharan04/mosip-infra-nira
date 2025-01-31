@@ -23,7 +23,7 @@ function installing_print() {
   ./copy_cm.sh
 
   echo Installing print service
-  helm -n $NS install print-service mosip/print-service --set image.repository=niraqa/print --set image.tag=tf_nira_qa_new --wait --version $CHART_VERSION
+  helm -n $NS install print-service mosip/print-service --set image.repository=niraqa/print --set image.tag=pre-production --wait --version $CHART_VERSION
   return 0
 }
 
