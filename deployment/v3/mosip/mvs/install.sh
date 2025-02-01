@@ -37,10 +37,10 @@ function installing_mvs() {
   kubectl -n $NS apply -f mvs-proxy.yaml
 
   echo Installing mvs-ui
-  helm -n $NS install mvs-ui mosip-helm-nira/mvs-ui --set image.repository=niraqa/manual-verification-system-ui --set image.tag=tf_nira_qa_new --set mvs.apiUrl=https://$mvs_HOST --set istio.hosts[0]=$mvs_HOST --version $CHART_VERSION
+  helm -n $NS install mvs-ui mosip-helm-nira/mvs-ui --set image.repository=niraqa/manual-verification-system-ui --set image.tag=pre-production --set mvs.apiUrl=https://$mvs_HOST --set istio.hosts[0]=$mvs_HOST --version $CHART_VERSION
 
   echo Installing ms service. Will wait till service gets installed.
-  helm -n $NS install mvs-service mosip-helm-nira/mvs-service --set image.repository=niraqa/manual-verification-service -set image.tag=tf_nira_qa_new --version $CHART_VERSION --wait
+  helm -n $NS install mvs-service mosip-helm-nira/mvs-service --set image.repository=niraqa/manual-verification-service -set image.tag=pre-production --version $CHART_VERSION --wait
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
