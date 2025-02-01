@@ -18,7 +18,6 @@ function installing_regproc() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
   helm repo update
-  helm search repo mosip-helm-nira/mvs-ui
 
   echo Copy configmaps
   sed -i 's/\r$//' copy_cm.sh
