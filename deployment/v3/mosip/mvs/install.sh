@@ -13,8 +13,8 @@ CHART_VERSION=12.0.1
 echo Create $NS namespace
 kubectl create ns $NS
 
-helm repo add mvs-service https://tf-nira.github.io/mosip-helm/
-helm repo add mvs-ui https://tf-nira.github.io/mosip-helm/
+helm repo add mvs-service https://tf-nira.github.io/mosip-helm-nira/
+helm repo add mvs-ui https://tf-nira.github.io/mosip-helm-nira/
 
 function installing_mvs() {
   echo Istio label
