@@ -61,10 +61,10 @@ function installing_regproc() {
   helm -n $NS install regproc-group7 mosip/regproc-group7 --set image.repository=niraqa/registration-processor-stage-group-7 --set image.tag=pre-production --version $CHART_VERSION
 
   echo Installing group8
-  helm -n $NS install regproc-group8 /root/NIRA/mosip-helm/charts/regproc-group8/ --set image.repository=niraqa/registration-processor-stage-group-8 --set image.tag=pre-production --version $CHART_VERSION
+  helm -n $NS install regproc-group8 mosip-helm-nira/regproc-group8 --set image.repository=niraqa/registration-processor-stage-group-8 --set image.tag=pre-production --version $CHART_VERSION
 
 echo Installing group9
-  helm -n $NS install regproc-group9 /root/NIRA/mosip-helm/charts/regproc-group9/ --set image.repository=niraqa/registration-processor-stage-group-9 --set image.tag=pre-production --version $CHART_VERSION
+  helm -n $NS install regproc-group9 mosip-helm-nira/regproc-group9 --set image.repository=niraqa/registration-processor-stage-group-9 --set image.tag=pre-production --version $CHART_VERSION
     
 
   echo Installing regproc-trans
