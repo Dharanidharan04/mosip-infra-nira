@@ -13,8 +13,7 @@ CHART_VERSION=12.0.1
 echo Create $NS namespace
 kubectl create ns $NS
 
-helm repo add mvs-service https://tf-nira.github.io/mosip-helm-nira/
-helm repo add mvs-ui https://tf-nira.github.io/mosip-helm-nira/
+helm repo add mosip-helm https://Dharanidharan04.github.io/mosip-helm-nira-/
 
 function installing_mvs() {
   echo Istio label
@@ -25,22 +24,17 @@ function installing_mvs() {
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
 
-  #echo login to docker
- # sed -i 's/\r$//' dockerlogin.sh
-  #./dockerlogin.sh
-
-
   API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-  mvs_HOST=$NS.$(kubectl get cm global -o jsonpath={.data.installation-domain})
+  mvs_HOST=$NS-$(kubectl get cm global -o jsonpath={.data.installation-domain})
 
   echo Installing mvs-Proxy into Masterdata and Keymanager.
   kubectl -n $NS apply -f mvs-proxy.yaml
 
   echo Installing mvs-ui
-  helm -n $NS install mvs-ui mosip-helm-nira/mvs-ui --set image.repository=niraqa/manual-verification-system-ui --set image.tag=pre-production --set mvs.apiUrl=https://$mvs_HOST --set istio.hosts[0]=$mvs_HOST --version $CHART_VERSION
+  helm -n $NS install mvs-ui mosip-helm/mvs-ui --set image.repository=niraqa/manual-verification-system-ui --set image.tag=pre-production --set mvs.apiUrl=https://$mvs_HOST --set istio.hosts[0]=$mvs_HOST --version $CHART_VERSION
 
   echo Installing ms service. Will wait till service gets installed.
-  helm -n $NS install mvs-service mosip-helm-nira/mvs-service --set image.repository=niraqa/manual-verification-service -set image.tag=pre-production --version $CHART_VERSION --wait
+  helm -n $NS install mvs-service mosip-helm/mvs-service  --set image.repository=niraqa/manual-verification-service --set image.tag=pre-production --version $CHART_VERSION --wait
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
