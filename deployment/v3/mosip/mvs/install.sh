@@ -25,9 +25,9 @@ function installing_mvs() {
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
 
-  echo login to docker
-  sed -i 's/\r$//' dockerlogin.sh
-  ./dockerlogin.sh
+  #echo login to docker
+ # sed -i 's/\r$//' dockerlogin.sh
+  #./dockerlogin.sh
 
 
   API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
