@@ -33,7 +33,7 @@ function installing_mvs() {
   echo Installing mvs-ui
   helm -n $NS install mvs-ui mosip-helm/mvs-ui --set image.repository=niraqa/manual-verification-system-ui --set image.tag=pre-production --set mvs.apiUrl=https://$mvs_HOST --set istio.hosts[0]=$mvs_HOST --version $CHART_VERSION
 
-  echo Installing ms service. Will wait till service gets installed.
+  echo Installing mvs service. Will wait till service gets installed.
   helm -n $NS install mvs-service mosip-helm/mvs-service  --set image.repository=niraqa/manual-verification-service --set image.tag=pre-production --version $CHART_VERSION --wait
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
