@@ -19,11 +19,11 @@ spec:
         image: nginxinc/nginx-unprivileged:1.21.6-alpine
         ports:
         - name: http
-          containerPort: 8080
+          containerPort: 9002
         livenessProbe:
           httpGet:
             path: "/ping"
-            port: 8080
+            port: 9002
           initialDelaySeconds: 5
           periodSeconds: 20
           timeoutSeconds: 1
@@ -32,7 +32,7 @@ spec:
         readinessProbe:
           httpGet:
             path: "/ping"
-            port: 8080
+            port: 9002
           initialDelaySeconds: 5
           periodSeconds: 10
           timeoutSeconds: 1
@@ -87,7 +87,7 @@ data:
         gzip  on;
 
         server {
-            listen 8080;
+            listen 9002;
 
             location /v1/masterdata {
                 proxy_pass                      http://masterdata.kernel;
